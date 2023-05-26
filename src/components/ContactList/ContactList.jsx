@@ -1,20 +1,29 @@
-export function ContactList({ renderedData, deleteUser }) {
+import PropTypes from 'prop-types';
+
+import { ContactsListStyle, ContactItem, Delete } from './ContactList.style';
+
+export function ContactList({ contacts, deleteUser }) {
   return (
     <>
-      <ul>
-        {renderedData().map(contact => (
-          <li key={contact.id} id={contact.id}>
+      <ContactsListStyle>
+        {contacts.map(contact => (
+          <ContactItem key={contact.id}>
             {contact.name} <span>{contact.number} </span>
-            <button
-              onClick={evt => {
-                deleteUser(evt.target.closest('li').id);
+            <Delete
+              onClick={() => {
+                deleteUser(contact.id);
               }}
             >
               Delete
-            </button>
-          </li>
+            </Delete>
+          </ContactItem>
         ))}
-      </ul>
+      </ContactsListStyle>
     </>
   );
 }
+
+ContactList.propTypes = {
+  contacts: PropTypes.array.isRequired,
+  deleteUser: PropTypes.func.isRequired,
+};
