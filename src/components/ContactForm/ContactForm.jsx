@@ -12,7 +12,15 @@ export class ContactForm extends Component {
   onSubmitForm = evt => {
     evt.preventDefault();
 
-    this.props.addUser(this.state);
+    const flag = this.props.addUser(this.state);
+    if (flag) this.resetInputs();
+  };
+
+  resetInputs = () => {
+    this.setState({
+      name: '',
+      number: '',
+    });
   };
 
   handleChange = ({ target: { name, value } }) => {

@@ -12,9 +12,13 @@ export class App extends Component {
   };
 
   addUser = data => {
-    if (this.state.contacts.find(contact => data.name === contact.name)) {
+    if (
+      this.state.contacts.find(
+        contact => data.name.toLowerCase() === contact.name.toLowerCase()
+      )
+    ) {
       alert(`${data.name} is already in contacts`);
-      return;
+      return false;
     }
 
     this.setState(prevState => {
@@ -22,6 +26,7 @@ export class App extends Component {
         contacts: [...prevState.contacts, { ...data, id: nanoid() }],
       };
     });
+    return true;
   };
 
   deleteUser = id => {
